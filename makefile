@@ -1,21 +1,15 @@
 CXX = clang
-CXXFLAGS = -std=c11
+CXXFLAGS = -std=c11 -g
 LDFLAGS =
 
 LIB_DIR = lib
-LIBS = ansiinput ansipixel raymath
+LIBS = ansiinput ansipixel raymath flecs
 
 SRC_DIR = src
-MODULES = main terrain
+MODULES = main terrain input graphics movable player sprite ui
 
 TARGET_DIR = target
 TARGET = main
-
-# prerequisites for each module
-# add the module even if there is no prerequisite
-# full path from project root dir
-main = lib/ansiinput/ansiinput.h lib/ansipixel/ansipixel.h lib/raymath/raymath.h
-terrain = src/terrain.h lib/raymath/raymath.h
 
 .PHONY: all
 all: $(TARGET_DIR) $(TARGET_DIR)/$(TARGET)
@@ -39,7 +33,7 @@ $(TARGET_DIR)/$(TARGET): $(LIB_OBJ) $(MODULE_OBJ)
 
 .SECONDEXPANSION:
 
-$(TARGET_DIR)/%.o: $(SRC_DIR)/%.c $$($$*) makefile
+$(TARGET_DIR)/%.o: $(SRC_DIR)/%.c $$(shell ./extract_dep.sh %) makefile
 	@echo compiling $@
 	@$(CXX) $(CXXFLAGS) $< -c -o $@
 
