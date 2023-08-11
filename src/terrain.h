@@ -6,11 +6,21 @@
 
 #define TERRAIN_SCALE 0.05
 
+typedef struct {
+    float lower;
+    float upper;
+} FunctionRange;
+
 float Terrain_terrain(Vector2 p);
+extern FunctionRange Terrain_terrain_range;
 
 typedef enum {
     BIOME_SEA,
+    BIOME_ICE,
+    BIOME_SWAMP,
+    BIOME_MEADOW,
     BIOME_JUNGLE,
+    BIOME_HIGHLAND,
     BIOME_SNOW,
     BIOME_DESSERT,
     BIOME_VOLCANO,

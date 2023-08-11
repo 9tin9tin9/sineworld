@@ -49,8 +49,8 @@ AP_ColorRgb drawMap(struct AP_BufferRgb* buf, size_t h, size_t w, Vector2 pos) {
 
     float cf = heightmap[(h/2)*w + (w/2)];
     TerrainBiome cb = biomemap[(h/2)*w + (w/2)];
-    float renderMax = cf + 5;
-    float renderMin = cf - 5;
+    float renderMax = cf + Terrain_terrain_range.upper * 0.2;
+    float renderMin = cf + Terrain_terrain_range.lower * 0.2;
 
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
